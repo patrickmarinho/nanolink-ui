@@ -1,0 +1,16 @@
+<p>shortener-component works!</p>
+<button (click)="submit($event)">clique</button>
+
+@if (verdadeiro) {
+    <p>VERDADEIRO</p>
+}@else {
+    <P>FALSO</P>
+}
+
+@for (item of listItems; track item) {
+    <p>{{item}}</p>
+}
+
+@for (item of listItems2; track $index) {
+    <p>{{item}}</p>
+}

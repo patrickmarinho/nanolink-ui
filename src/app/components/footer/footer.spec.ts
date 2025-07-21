@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ShortenerComponent } from './shortener-component';
+import { Footer } from './footer';
 
-describe('ShortenerComponent', () => {
-  let component: ShortenerComponent;
-  let fixture: ComponentFixture<ShortenerComponent>;
+describe('Footer', () => {
+  let component: Footer;
+  let fixture: ComponentFixture<Footer>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ShortenerComponent]
+      imports: [Footer]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ShortenerComponent);
+    fixture = TestBed.createComponent(Footer);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

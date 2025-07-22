@@ -2,10 +2,16 @@
 
 .nanoLink-header{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: center;
     gap: 15px;
     padding: 15px;
     font-size: 32px;
     color: white;
     font-family: "Pacifico", sans-serif;
+    height: 150px;
+    padding-top: 25px;
+}
+.heart{
+    color: #F54049;
 }

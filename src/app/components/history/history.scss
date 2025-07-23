@@ -11,11 +11,10 @@ body {
 .link-history {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     background-color: #EFF3F5;
     width: 100%;
-    padding: 24px 32px;
+    height: 40vh;
 }
 
 .link-history-header {
@@ -46,6 +45,7 @@ body {
 
 .history-item {
     display: flex;
+    position: relative;
     align-items: center;
     padding: 16px 0;
     border-bottom: 1px solid #e9ecef;
@@ -72,9 +72,34 @@ body {
   cursor: pointer;
   border-radius: 50%;
   display: flex;
-  align-items: center;
-  justify-content: center;
   color: #adb5bd;
+}
+.item-action-tooltip {
+  position: absolute;
+  top: 50%;
+  right: 48px; 
+  transform: translateY(-50%);
+  background-color: #fff;
+  color: #333;
+  padding: 4px 10px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+
+.item-action:hover + .item-action-tooltip,
+.item-action:focus + .item-action-tooltip {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.item-text {
+  flex-grow: 1;
 }
 
 @media (min-width: 768px) {

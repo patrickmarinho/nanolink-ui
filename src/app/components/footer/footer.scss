@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100..900&display=swap');
+
+*{
+    font-family: "Roboto", sans-serif;
+    background-color: #ffff;
+}
+
+.nanoLink-footer{
+  width: 100%;
+  height: 10vh;
+  background-color: white; /* Exemplo de cor de fundo */
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem; /* Adicione um espaçamento */
+}

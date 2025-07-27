@@ -1,9 +1,28 @@
 <main class="nanoLink-main">
     <div class="container">
         <h1>PASTE THE URL TO BE SHORTENED</h1>
-        <div class="input-group">
-            <input type="text" class="input-field" placeholder="www.site.com">
-            <button type="submit" class="input-button">Shorten</button>
+        <div class="input-group"
+        [class.input-group-error]="errorMessage() !== ''">
+            <input 
+                type="text" 
+                class="input-field" 
+                placeholder="www.site.com"
+                [formControl]="urlControl"
+            >
+            
+            <button 
+                type="submit" 
+                class="input-button" 
+                (click)="shortenUrl()">
+                Shorten
+            </button>
         </div>
+        @if (errorMessage()) {
+            <div>
+                <div class="error-message">
+                    <p>{{ errorMessage() }}</p>
+                </div>
+            </div>
+        }
     </div>
 </main>

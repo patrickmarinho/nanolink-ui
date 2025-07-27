@@ -29,10 +29,16 @@ h1{
     justify-content: center;
     background-color: #FFFF;
     border-radius: 50px;
+    border: 2px solid transparent; 
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 90%;
     margin: 20px auto;
+}
+.input-group:focus-within{
+    border: 2px solid #0073b1;
+    box-shadow: 0 0 5px #0073b1;
 }
 .input-field {
     width: 90%;
@@ -59,4 +65,16 @@ h1{
 }
 .input-button:hover {
     background-color: #DC2626;
+}
+.input-group.input-group-error {
+  border: 2px solid #e74c3c; // Define a borda vermelha que você quer
+  box-shadow: 0 0 5px rgba(231, 76, 60, 0.5);
+}
+
+.error-message {
+  color: #e74c3c;
+  font-family: "Roboto", sans-serif; // Adicionado para consistência
+  font-size: 1em;
+  margin-top: -5px; // Ajustado para ficar mais perto do input
+  width: 100%;
 }

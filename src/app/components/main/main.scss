@@ -67,14 +67,14 @@ h1{
     background-color: #DC2626;
 }
 .input-group.input-group-error {
-  border: 2px solid #e74c3c; // Define a borda vermelha que você quer
+  border: 2px solid #e74c3c;
   box-shadow: 0 0 5px rgba(231, 76, 60, 0.5);
 }
 
 .error-message {
   color: #e74c3c;
-  font-family: "Roboto", sans-serif; // Adicionado para consistência
-  font-size: 1em;
-  margin-top: -5px; // Ajustado para ficar mais perto do input
+  font-family: "Roboto", sans-serif;
+  font-size: 2em;
+  margin-top: -5px;
   width: 100%;
 }

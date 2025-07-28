@@ -1,5 +1,7 @@
-import { Component, signal,} from '@angular/core';
+import { Component, inject, signal,} from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NanoLinkShortenerService, ShortenUrlResponse } from '../../service/nano-link-shortener-service';
+import { catchError, finalize, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-main',
@@ -8,24 +10,47 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
   styleUrl: './main.scss'
 })
 export class Main {
-  errorMessage = signal("");
+  private shortenerService = inject(NanoLinkShortenerService);
+  errorMessage = signal<string>('');
+  isLoading = signal<boolean>(false);
+  shortenedUrl = signal<string>('');
+  isCopied = signal<boolean>(false);
 
-  urlControl = new FormControl("", [
+  urlForm = new FormControl("", [
     Validators.required,
-    Validators.pattern(".*\\.com.*")
+    // Validators.pattern(this.urlPattern)
   ]);
 
-  shortenUrl() {
-    if (this.urlControl.valid) {
-      console.log("URL a ser encurtada:", this.urlControl.value);
-      this.errorMessage.set("");
+  submit(){
+    this.errorMessage.set('');
+    this.shortenedUrl.set('');
+    this.isCopied.set(false);
+
+    if(this.urlForm.invalid){
+      this.errorHandling()
       return;
     }
 
-    if (this.urlControl.hasError("required")) {
+    this.isLoading.set(true);
+
+    const body = {"originalUrl": this.urlForm.value}
+    this.shortenerService.shortenUrl(this.urlForm.value!).pipe(
+      tap((response: ShortenUrlResponse) => {
+        const newUrl = response.shortenedUrl;
+        this.shortenedUrl.set(newUrl);
+        this.urlForm.setValue(newUrl);
+      }), catchError(err => {
+          this.errorMessage.set('Falha ao encurtar a URL. Tente novamente.');
+          return of(null);
+        }), finalize(() => {
+          this.isLoading.set(false);
+        })
+    ).subscribe();
+  }
+
+  errorHandling(){
+    if (this.urlForm.hasError("required")) {
       this.errorMessage.set("Insira uma URL");
-    } else if (this.urlControl.hasError("pattern")) {
-      this.errorMessage.set("Insira uma URL válida");
     }
   }
 }

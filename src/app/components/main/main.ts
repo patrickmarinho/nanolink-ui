@@ -12,7 +12,6 @@ import { catchError, finalize, of, tap } from 'rxjs';
 export class Main {
   private shortenerService = inject(NanoLinkShortenerService);
   errorMessage = signal<string>('');
-  isLoading = signal<boolean>(false);
   shortenedUrl = signal<string>('');
   isCopied = signal<boolean>(false);
 
@@ -31,21 +30,19 @@ export class Main {
       return;
     }
 
-    this.isLoading.set(true);
-
     const body = {"originalUrl": this.urlForm.value}
+
     this.shortenerService.shortenUrl(this.urlForm.value!).pipe(
-      tap((response: ShortenUrlResponse) => {
-        const newUrl = response.shortenedUrl;
-        this.shortenedUrl.set(newUrl);
-        this.urlForm.setValue(newUrl);
-      }), catchError(err => {
-          this.errorMessage.set('Falha ao encurtar a URL. Tente novamente.');
-          return of(null);
-        }), finalize(() => {
-          this.isLoading.set(false);
-        })
-    ).subscribe();
+      catchError(err => {
+        this.errorMessage.set('Falha ao encurtar a URL. Tente novamente.');
+        console.error('Erro da API:', err);
+        return of(null);
+      })
+    ).subscribe((response: ShortenUrlResponse | null) => {
+      const newUrl = response!.shortUrl;
+      this.urlForm.setValue("http:localhost:8080/" + newUrl);
+      console.log(newUrl);
+    });
   }
 
   errorHandling(){

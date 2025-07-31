@@ -8,25 +8,13 @@
                 class="input-field" 
                 placeholder="www.site.com"
                 [formControl]="urlForm"
-                [readOnly]="isLoading()"
             >
             
             <button 
                 type="submit" 
                 class="input-button" 
                 (click)="submit()"
-                [disabled]="isLoading()">
-                @if (isLoading()) {
-                    <span class="spinner"></span>
-                } @else if (shortenedUrl()) {
-                    @if(isCopied()){
-                        <span>Copiado!</span>
-                    } @else {
-                        <span>Copiar</span>
-                    }
-                } @else {
-                    <span>Encurtar</span>
-                }
+                >
                 Shorten
             </button>
         </div>

@@ -14,6 +14,7 @@ export class Main {
   errorMessage = signal<string>('');
   shortenedUrl = signal<string>('');
   isCopied = signal<boolean>(false);
+  isLoading = signal<boolean>(false);
 
   urlForm = new FormControl("", [
     Validators.required,
@@ -24,6 +25,7 @@ export class Main {
     this.errorMessage.set('');
     this.shortenedUrl.set('');
     this.isCopied.set(false);
+    this.isLoading.set(false);
 
     if(this.urlForm.invalid){
       this.errorHandling()
@@ -34,8 +36,9 @@ export class Main {
 
     this.shortenerService.shortenUrl(this.urlForm.value!).pipe(
       catchError(err => {
+        this.isLoading.set(true);
+        console.log(this.isLoading);
         this.errorMessage.set('Falha ao encurtar a URL. Tente novamente.');
-        console.error('Erro da API:', err);
         return of(null);
       })
     ).subscribe((response: ShortenUrlResponse | null) => {
